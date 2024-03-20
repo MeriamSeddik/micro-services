@@ -1,0 +1,38 @@
+eureka:
+  instance:
+    hostname: discovery-server
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka
+server:
+  port: 8100
+spring:
+  kafka:
+    bootstrap-servers: http://localhost:9092
+    template:
+      default-topic: notificationTopic
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring:
+          json:
+            type:
+              mapping: event:com.bnp.cardiff.claimRequest.event.ClaimRequestEvent
+
+  application:
+    name: claimRequest
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://micro-services-mysql-db-1:3307/Cardiff-Claims
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+application:
+  config:
+    policies-url: http://policies-service:8200/v1/protection-policies
+
