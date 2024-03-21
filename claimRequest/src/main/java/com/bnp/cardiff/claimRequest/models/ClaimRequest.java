@@ -41,6 +41,7 @@ public class ClaimRequest {
     private boolean isDematerialisedat;
     private boolean isDigitalised;
     private int claimAge;
+
     @OneToMany(mappedBy="claimRequests", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Status> status;

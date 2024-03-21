@@ -39,11 +39,9 @@ public class Policy {
     @OneToMany(mappedBy = "policy",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Product> products;
 
-    @ManyToMany(mappedBy = "policies")
-    @JsonIgnore
+    @ManyToMany(mappedBy = "policies",cascade = CascadeType.MERGE)
     private List<Guarantee> guarantees;
 
     @ManyToMany(mappedBy = "policies")
-    @JsonIgnore
     private List<PolicyRole> policyRoles;
 }

@@ -1,6 +1,7 @@
 package com.bnp.cardiff.claimRequest.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class Product {
     private int familyType;
     private int type;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "policy_id")
     private Policy policy;
 }

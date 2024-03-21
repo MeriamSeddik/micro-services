@@ -30,10 +30,10 @@
       <module name="claimRequest" options="-parameters" />
       <module name="claimRequest (1)" options="-parameters" />
       <module name="claimRequest (2)" options="-parameters" />
-      <module name="config-server" options="" />
-      <module name="discovery-server" options="" />
-      <module name="notification" options="" />
-      <module name="policies" options="" />
+      <module name="config-server" options="-parameters" />
+      <module name="discovery-server" options="-parameters" />
+      <module name="notification" options="-parameters" />
+      <module name="policies" options="-parameters" />
       <module name="policies (1)" options="-parameters" />
       <module name="policies (2)" options="-parameters" />
       <module name="school" options="-parameters" />

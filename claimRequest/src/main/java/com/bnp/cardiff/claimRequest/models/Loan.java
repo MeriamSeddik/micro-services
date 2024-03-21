@@ -1,5 +1,6 @@
 package com.bnp.cardiff.claimRequest.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class Loan {
     private int remainingAmount;
     private Date endedAt;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "policy_id")
     private Policy policy;
 }

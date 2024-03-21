@@ -1,6 +1,7 @@
 package com.bnp.cardiff.claimRequest.services.impl;
 
 import com.bnp.cardiff.claimRequest.config.ProtectionPoliciesClient;
+import com.bnp.cardiff.claimRequest.config.models.Covers;
 import com.bnp.cardiff.claimRequest.config.models.ProtectionPolicies;
 import com.bnp.cardiff.claimRequest.dto.request.ClaimRequestStatusRequest;
 import com.bnp.cardiff.claimRequest.dto.response.ClaimRequestResponse;
@@ -71,15 +72,34 @@ public class ClaimRequestServiceImpl implements IService<ClaimRequest> {
         Optional<ClaimRequest> claim=claimRequestRepository.findById(requestId);
         ProtectionPolicies policy = protectionPoliciesConfig.fundPolicyById(idPolicies);
         if(claim.isPresent()){
+            List<Covers> covers = policy.getCovers();
+            List<Guarantee> guarantees = new ArrayList<>();
+
             Policy requestpolicy = Policy.builder()
-                    .status(policy.getIdPolicies())
+                    .effectiveAt(policy.getEffectiveStartDate())
+                    .joinedAt(policy.getStartDate())
+                    .effectiveAt(policy.getEffectiveEndDate())
                     .claimRequests(new HashSet<>(Arrays.asList(claim.get())))
                     .build();
             Product requestProduct = Product.builder()
                     .code(policy.getProductCode())
                     .policy(requestpolicy)
                     .build();
+            for(Covers c:covers){
+                Guarantee guarantee= Guarantee.builder()
+                        .code(c.getGuaranteeTypeCode())
+                        .label(c.getRisk())
+                        .build();
+                guaranteeRepository.save(guarantee);
+                guarantees.add(guarantee);
+            }
             requestpolicy.setProducts(new HashSet<>(Arrays.asList(requestProduct)));
+            policyRepository.save(requestpolicy);
+            for(Guarantee guarantee:guarantees){
+                guarantee.setPolicies(new HashSet<>(Arrays.asList(requestpolicy)));
+                guaranteeRepository.save(guarantee);
+            }
+            requestpolicy.setGuarantees(guarantees);
             policyRepository.save(requestpolicy);
             claim.get().setPolicys(new HashSet<>(Arrays.asList(requestpolicy)));
             claimRequestRepository.save(claim.get());

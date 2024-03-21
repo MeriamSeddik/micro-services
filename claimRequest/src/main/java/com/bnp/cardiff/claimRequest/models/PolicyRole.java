@@ -1,5 +1,6 @@
 package com.bnp.cardiff.claimRequest.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class PolicyRole {
     private Integer id;
     private String role;
     @ManyToMany
+    @JsonIgnore
     private Set<Policy> policies;
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<Person> persons;
