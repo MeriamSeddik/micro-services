@@ -6,7 +6,7 @@ import com.bnp.cardiff.notification.repository.ClaimRequestEventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
+import java.util.*;
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -24,5 +24,9 @@ public class ClaimRequestEventService {
         claimRequestEventRepository.save(event);
         log.info("Event {} is saved ",claimRequestEvent.getMessage());
 
+    }
+
+    public List<Event> getAllEvents(){
+        return claimRequestEventRepository.findAll();
     }
 }
