@@ -17,7 +17,19 @@ spring:
           uri: http://localhost:8100
           predicates:
             - Path=/api/claimRequest/**
-
+        - id: policies
+          uri: http://localhost:8200
+          predicates:
+            - Path=/v1/protection-policies/**
+        - id: notification
+          uri: http://localhost:8300
+          predicates:
+            - Path=/api/notification/**
+  security:
+    oauth:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/springboot-microservices-realm
 management:
   tracing:
     sampling:

@@ -18,7 +18,7 @@ spring:
         spring:
           json:
             type:
-              mapping: event:com.bnp.cardiff.claimRequest.event.ClaimRequestEvent
+              mapping: event:com.bnp.cardiff.claimrequest.event.ClaimRequestEvent
 
   application:
     name: claimRequest
@@ -36,3 +36,7 @@ spring:
 application:
   config:
     policies-url: http://localhost:8200/v1/protection-policies
+management:
+  tracing:
+    sampling:
+      probability: 1.0

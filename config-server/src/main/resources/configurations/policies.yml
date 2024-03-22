@@ -9,7 +9,6 @@ server:
 spring:
   application:
     name: policies
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/Cardiff-Protection-Policies
@@ -20,3 +19,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
